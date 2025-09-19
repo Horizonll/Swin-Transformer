@@ -1,0 +1,9 @@
+MODEL:
+  TYPE: pvt_medium
+  NAME: pvt_medium
+  DROP_PATH_RATE: 0.3
+TRAIN:
+  EPOCHS: 100
+  CLIP_GRAD: 1.0
+PRINT_FREQ: 100
+SAVE_FREQ: 10

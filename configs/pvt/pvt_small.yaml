@@ -1,0 +1,9 @@
+MODEL:
+  TYPE: pvt_small
+  NAME: pvt_small
+  DROP_PATH_RATE: 0.1
+TRAIN:
+  EPOCHS: 100
+  CLIP_GRAD: None
+PRINT_FREQ: 100
+SAVE_FREQ: 10

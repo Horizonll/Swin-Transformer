@@ -1,0 +1,15 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -p RTX3090
+#SBATCH -w node07
+#SBATCH --gres=gpu:8
+#SBATCH -J pvt_k
+#SBATCH -o out_pvt_k
+#SBATCH -e err_pvt_k
+
+source /cluster/home3/hrz/miniforge3/bin/activate
+conda activate a
+
+# python -m torch.distributed.launch --nproc_per_node 8 main.py --cfg configs/swin/swin_tiny_patch4_window7_224.yaml --data-path /home/data/imagenet --batch-size 128 --fused_window_process --tag remove_kv
+
+python -m torch.distributed.launch --nproc_per_node 8 main.py --cfg configs/pvt/pvt_tiny.yaml --data-path /home/data/imagenet --batch-size 128

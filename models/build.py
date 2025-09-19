@@ -5,12 +5,12 @@
 # Written by Ze Liu
 # --------------------------------------------------------
 
-from .swin_transformer import SwinTransformer
+from .swin_transformer_kv import SwinTransformer
 from .swin_transformer_v2 import SwinTransformerV2
 from .swin_transformer_moe import SwinTransformerMoE
 from .swin_mlp import SwinMLP
 from .simmim import build_simmim
-
+from .pvt_k import pvt_tiny, pvt_small, pvt_medium, pvt_large
 
 def build_model(config, is_pretrain=False):
     model_type = config.MODEL.TYPE
@@ -115,6 +115,18 @@ def build_model(config, is_pretrain=False):
                         ape=config.MODEL.SWIN_MLP.APE,
                         patch_norm=config.MODEL.SWIN_MLP.PATCH_NORM,
                         use_checkpoint=config.TRAIN.USE_CHECKPOINT)
+    elif model_type == 'pvt_tiny':
+        model = pvt_tiny(drop_rate=config.MODEL.DROP_RATE,
+                         drop_path_rate=config.MODEL.DROP_PATH_RATE)
+    elif model_type == 'pvt_small':
+        model = pvt_small(drop_rate=config.MODEL.DROP_RATE,
+                          drop_path_rate=config.MODEL.DROP_PATH_RATE)
+    elif model_type == 'pvt_medium':
+        model = pvt_medium(drop_rate=config.MODEL.DROP_RATE,
+                           drop_path_rate=config.MODEL.DROP_PATH_RATE)
+    elif model_type == 'pvt_large':
+        model = pvt_large(drop_rate=config.MODEL.DROP_RATE,
+                          drop_path_rate=config.MODEL.DROP_PATH_RATE)
     else:
         raise NotImplementedError(f"Unkown model: {model_type}")
 
